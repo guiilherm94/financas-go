@@ -18,17 +18,53 @@ import {
   ChevronRight
 } from 'lucide-react'
 
+interface Transaction {
+  id: string
+  user_id: string
+  type: string
+  amount: number
+  description: string
+  category_id: string | null
+  account_id: string | null
+  card_id: string | null
+  date: string
+  is_recurring: boolean
+  is_paid: boolean
+  created_at: string
+}
+
+interface Category {
+  id: string
+  name: string
+  type: string
+  emoji: string
+  color: string
+}
+
+interface Account {
+  id: string
+  name: string
+  type: string
+  emoji: string
+}
+
+interface Card {
+  id: string
+  name: string
+  emoji: string
+}
+
 export default function TransactionsPage() {
-  const [transactions, setTransactions] = useState([])
-  const [filteredTransactions, setFilteredTransactions] = useState([])
-  const [categories, setCategories] = useState({ income: [], expense: [] })
-  const [accounts, setAccounts] = useState([])
-  const [cards, setCards] = useState([])
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([])
+  const [categories, setCategories] = useState<{ income: Category[], expense: Category[] }>({ income: [], expense: [] })
+  const [accounts, setAccounts] = useState<Account[]>([])
+  const [cards, setCards] = useState<Card[]>([])
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [editingTransaction, setEditingTransaction] = useState(null)
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState({
     type: 'all',

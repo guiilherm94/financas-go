@@ -4,6 +4,26 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Plus, Edit, Trash2, CreditCard, Calendar, DollarSign } from 'lucide-react'
 
+interface Card {
+  id: string
+  user_id: string
+  name: string
+  limit_amount: number
+  closing_day: number
+  due_day: number
+  emoji: string
+  color: string
+  created_at: string
+}
+
+interface Transaction {
+  id: string
+  amount: number
+  description: string
+  date: string
+  card_id: string
+}
+
 const DEFAULT_COLORS = [
   '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', 
   '#10b981', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1', 
@@ -16,11 +36,11 @@ const DEFAULT_EMOJIS = [
 ]
 
 export default function CardsPage() {
-  const [cards, setCards] = useState([])
-  const [transactions, setTransactions] = useState([])
+  const [cards, setCards] = useState<Card[]>([])
+  const [transactions, setTransactions] = useState<Transaction[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [editingCard, setEditingCard] = useState(null)
+  const [editingCard, setEditingCard] = useState<Card | null>(null)
   
   const [formData, setFormData] = useState({
     name: '',

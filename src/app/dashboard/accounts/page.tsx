@@ -4,6 +4,17 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Plus, Edit, Trash2, Building2, PiggyBank, TrendingUp, Wallet } from 'lucide-react'
 
+interface Account {
+  id: string
+  user_id: string
+  name: string
+  type: string
+  balance: number
+  emoji: string
+  color: string
+  created_at: string
+}
+
 const ACCOUNT_TYPES = [
   { value: 'checking', label: 'Conta Corrente', icon: Building2 },
   { value: 'savings', label: 'Conta Poupança', icon: PiggyBank },
@@ -23,10 +34,10 @@ const DEFAULT_EMOJIS = [
 ]
 
 export default function AccountsPage() {
-  const [accounts, setAccounts] = useState([])
+  const [accounts, setAccounts] = useState<Account[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [editingAccount, setEditingAccount] = useState(null)
+  const [editingAccount, setEditingAccount] = useState<Account | null>(null)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -64,7 +75,7 @@ export default function AccountsPage() {
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     try {
@@ -104,7 +115,7 @@ export default function AccountsPage() {
     }
   }
 
-  const handleEdit = (account) => {
+  const handleEdit = (account: Account) => {
     setFormData({
       name: account.name,
       type: account.type,
@@ -116,7 +127,7 @@ export default function AccountsPage() {
     setShowModal(true)
   }
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Tem certeza que deseja excluir esta conta? Todas as transações relacionadas serão afetadas.')) return
 
     try {
@@ -145,7 +156,7 @@ export default function AccountsPage() {
     })
   }
 
-  const formatCurrency = (amount) => {
+  const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
@@ -156,12 +167,12 @@ export default function AccountsPage() {
     return accounts.reduce((sum, account) => sum + account.balance, 0)
   }
 
-  const getAccountTypeLabel = (type) => {
+  const getAccountTypeLabel = (type: string) => {
     const accountType = ACCOUNT_TYPES.find(t => t.value === type)
     return accountType ? accountType.label : type
   }
 
-  const getAccountTypeIcon = (type) => {
+  const getAccountTypeIcon = (type: string) => {
     const accountType = ACCOUNT_TYPES.find(t => t.value === type)
     const IconComponent = accountType ? accountType.icon : Building2
     return <IconComponent className="w-4 h-4" />
