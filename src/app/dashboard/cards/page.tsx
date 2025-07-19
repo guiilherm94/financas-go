@@ -98,7 +98,7 @@ export default function CardsPage() {
       const cardData = {
         ...formData,
         user_id: session.user.id,
-        limit: parseFloat(formData.limit) || 0,
+        limit_amount: parseFloat(formData.limit) || 0,
         closing_day: parseInt(formData.closing_day),
         due_day: parseInt(formData.due_day)
       }
@@ -133,7 +133,7 @@ export default function CardsPage() {
   const handleEdit = (card: Card) => {
     setFormData({
       name: card.name,
-      limit: card.limit.toString(),
+      limit: card.limit_amount.toString(),
       closing_day: card.closing_day.toString(),
       due_day: card.due_day.toString(),
       emoji: card.emoji,
@@ -277,7 +277,7 @@ export default function CardsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {cards.map((card) => {
                 const currentUsage = getCurrentMonthUsage(card.id)
-                const usagePercentage = getUsagePercentage(card.id, card.limit)
+                const usagePercentage = getUsagePercentage(card.id, card.limit_amount)
                 const daysUntilDue = getDaysUntilDue(card.closing_day, card.due_day)
                 const nextDueDate = getNextDueDate(card.closing_day, card.due_day)
 
@@ -304,7 +304,7 @@ export default function CardsPage() {
                               {card.name}
                             </h3>
                             <p className="text-sm opacity-80">
-                              Limite: {formatCurrency(card.limit)}
+                              Limite: {formatCurrency(card.limit_amount)}
                             </p>
                           </div>
                         </div>
@@ -345,7 +345,7 @@ export default function CardsPage() {
                             {usagePercentage.toFixed(1)}% do limite
                           </span>
                           <span className="opacity-80">
-                            Disponível: {formatCurrency(card.limit - currentUsage)}
+                            Disponível: {formatCurrency(card.limit_amount - currentUsage)}
                           </span>
                         </div>
                       </div>
