@@ -4,6 +4,16 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Plus, Edit, Trash2, ArrowUp, ArrowDown } from 'lucide-react'
 
+interface Category {
+  id: string
+  user_id: string
+  name: string
+  type: 'income' | 'expense'
+  emoji: string
+  color: string
+  created_at: string
+}
+
 const DEFAULT_COLORS = [
   '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', 
   '#10b981', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1', 
@@ -20,10 +30,10 @@ const DEFAULT_EMOJIS = [
 ]
 
 export default function CategoriesPage() {
-  const [categories, setCategories] = useState({ income: [], expense: [] })
+  const [categories, setCategories] = useState<{ income: Category[], expense: Category[] }>({ income: [], expense: [] })
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [editingCategory, setEditingCategory] = useState(null)
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null)
   const [activeTab, setActiveTab] = useState('expense')
   
   const [formData, setFormData] = useState({
@@ -63,7 +73,7 @@ export default function CategoriesPage() {
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
     try {
@@ -102,7 +112,7 @@ export default function CategoriesPage() {
     }
   }
 
-  const handleEdit = (category) => {
+  const handleEdit = (category: Category) => {
     setFormData({
       name: category.name,
       type: category.type,
@@ -113,7 +123,7 @@ export default function CategoriesPage() {
     setShowModal(true)
   }
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Tem certeza que deseja excluir esta categoria?')) return
 
     try {
