@@ -25,6 +25,7 @@ interface UserProfile {
   full_name?: string
   email: string
   subscription_status?: 'trial' | 'active' | 'cancelled' | 'expired' | 'free'
+  subscription_plan?: 'monthly' | 'yearly' | 'trial'
   subscription_end_date?: string
   created_at: string
   updated_at?: string
