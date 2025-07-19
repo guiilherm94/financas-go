@@ -130,7 +130,7 @@ export default function CardsPage() {
     }
   }
 
-  const handleEdit = (card) => {
+  const handleEdit = (card: Card) => {
     setFormData({
       name: card.name,
       limit: card.limit.toString(),
@@ -143,7 +143,7 @@ export default function CardsPage() {
     setShowModal(true)
   }
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Tem certeza que deseja excluir este cartão? Todas as transações relacionadas serão afetadas.')) return
 
     try {
@@ -173,14 +173,14 @@ export default function CardsPage() {
     })
   }
 
-  const formatCurrency = (amount) => {
+  const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
     }).format(amount)
   }
 
-  const getCurrentMonthUsage = (cardId) => {
+  const getCurrentMonthUsage = (cardId: string) => {
     const currentDate = new Date()
     const currentMonth = currentDate.getMonth()
     const currentYear = currentDate.getFullYear()
@@ -194,13 +194,13 @@ export default function CardsPage() {
       .reduce((sum, t) => sum + t.amount, 0)
   }
 
-  const getUsagePercentage = (cardId, limit) => {
+  const getUsagePercentage = (cardId: string, limit: number) => {
     if (limit === 0) return 0
     const usage = getCurrentMonthUsage(cardId)
     return Math.min(100, (usage / limit) * 100)
   }
 
-  const getNextDueDate = (closingDay, dueDay) => {
+  const getNextDueDate = (closingDay: number, dueDay: number) => {
     const today = new Date()
     const currentMonth = today.getMonth()
     const currentYear = today.getFullYear()
@@ -219,7 +219,7 @@ export default function CardsPage() {
     return new Date(dueYear, dueMonth, dueDay)
   }
 
-  const getDaysUntilDue = (closingDay, dueDay) => {
+  const getDaysUntilDue = (closingDay: number, dueDay: number) => {
     const nextDueDate = getNextDueDate(closingDay, dueDay)
     const today = new Date()
     const diffTime = nextDueDate.getTime() - today.getTime()
