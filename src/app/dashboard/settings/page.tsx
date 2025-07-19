@@ -141,7 +141,9 @@ export default function SettingsPage() {
 
       if (error) throw error
 
-      setUserData({ ...userData, full_name: formData.full_name })
+      if (userData) {
+        setUserData({ ...userData, full_name: formData.full_name })
+      }
       window.showNotification?.('Sucesso', 'Perfil atualizado com sucesso', 'success')
     } catch (error) {
       console.error('Erro ao atualizar perfil:', error)
