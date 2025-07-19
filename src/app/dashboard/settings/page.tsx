@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
+import type { User } from '@supabase/supabase-js'
 import { 
-  User, 
+  User as UserIcon, 
   Bell, 
   Download, 
   Upload, 
@@ -19,11 +20,27 @@ import {
   HelpCircle
 } from 'lucide-react'
 
+interface UserProfile {
+  id: string
+  full_name?: string
+  email: string
+  created_at: string
+  updated_at?: string
+}
+
+interface Subscription {
+  id: string
+  user_id: string
+  status: string
+  plan: string
+  created_at: string
+}
+
 export default function SettingsPage() {
   const router = useRouter()
-  const [user, setUser] = useState(null)
-  const [userData, setUserData] = useState(null)
-  const [subscription, setSubscription] = useState(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [userData, setUserData] = useState<UserProfile | null>(null)
+  const [subscription, setSubscription] = useState<Subscription | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('profile')
   const [darkMode, setDarkMode] = useState(false)
@@ -34,7 +51,7 @@ export default function SettingsPage() {
   })
 
   const tabs = [
-    { id: 'profile', label: 'Perfil', icon: User },
+    { id: 'profile', label: 'Perfil', icon: UserIcon },
     { id: 'subscription', label: 'Assinatura', icon: CreditCard },
     { id: 'preferences', label: 'Preferências', icon: Bell },
     { id: 'data', label: 'Dados', icon: Download },
@@ -109,8 +126,10 @@ export default function SettingsPage() {
     window.showNotification?.('Sucesso', `Tema ${newMode ? 'escuro' : 'claro'} ativado`, 'success')
   }
 
-  const handleProfileUpdate = async (e) => {
+  const handleProfileUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    if (!user) return
     
     try {
       const { error } = await supabase
@@ -142,6 +161,8 @@ export default function SettingsPage() {
   }
 
   const handleExportData = async () => {
+    if (!user) return
+    
     try {
       const { data: transactions } = await supabase
         .from('transactions')
@@ -193,6 +214,8 @@ export default function SettingsPage() {
   }
 
   const handleDeleteAccount = async () => {
+    if (!user) return
+    
     const confirmText = 'EXCLUIR CONTA'
     const userInput = prompt(
       `Esta ação é irreversível e todos os seus dados serão perdidos.\n\nPara confirmar, digite: ${confirmText}`
@@ -232,7 +255,7 @@ export default function SettingsPage() {
     }
   }
 
-  const createSubscription = async (planType) => {
+  const createSubscription = async (planType: string) => {
     try {
       const response = await fetch('/api/subscription/create', {
         method: 'POST',
