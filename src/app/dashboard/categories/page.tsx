@@ -34,7 +34,7 @@ export default function CategoriesPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [editingCategory, setEditingCategory] = useState<Category | null>(null)
-  const [activeTab, setActiveTab] = useState('expense')
+  const [activeTab, setActiveTab] = useState<'income' | 'expense'>('expense')
   
   const [formData, setFormData] = useState({
     name: '',
