@@ -291,7 +291,7 @@ export default function SettingsPage() {
     )
   }
 
-  const TabIcon = tabs.find(tab => tab.id === activeTab)?.icon || User
+  const TabIcon = tabs.find(tab => tab.id === activeTab)?.icon || UserIcon
   const subscriptionStatus = getSubscriptionStatus()
 
   return (
