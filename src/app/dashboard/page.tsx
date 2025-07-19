@@ -13,8 +13,59 @@ import {
   ArrowDownCircle
 } from 'lucide-react'
 
+interface Transaction {
+  id: string
+  user_id: string
+  amount: number
+  description: string
+  date: string
+  type: string
+  category_id?: string
+  account_id?: string
+  card_id?: string
+  created_at: string
+}
+
+interface Category {
+  id: string
+  user_id: string
+  name: string
+  type: 'income' | 'expense'
+  emoji: string
+  color: string
+  created_at: string
+}
+
+interface Account {
+  id: string
+  user_id: string
+  name: string
+  balance: number
+  type: string
+  emoji: string
+  color: string
+  created_at: string
+}
+
+interface Card {
+  id: string
+  user_id: string
+  name: string
+  limit_amount: number
+  closing_day: number
+  due_day: number
+  emoji: string
+  color: string
+  created_at: string
+}
+
 export default function DashboardPage() {
-  const [data, setData] = useState({
+  const [data, setData] = useState<{
+    transactions: Transaction[]
+    categories: { income: Category[], expense: Category[] }
+    accounts: Account[]
+    cards: Card[]
+  }>({
     transactions: [],
     categories: { income: [], expense: [] },
     accounts: [],
