@@ -105,6 +105,6 @@ export default function NotificationSystem() {
 
 declare global {
   interface Window {
-    showNotification: (title: string, message: string, type?: NotificationType, duration?: number) => void
+    showNotification?: (title: string, message: string, type?: NotificationType, duration?: number) => void
   }
 }

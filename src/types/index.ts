@@ -125,6 +125,6 @@ export interface SimulatorData {
 
 declare global {
   interface Window {
-    showNotification: (title: string, message: string, type?: 'success' | 'error' | 'warning' | 'info', duration?: number) => void
+    showNotification?: (title: string, message: string, type?: 'success' | 'error' | 'warning' | 'info', duration?: number) => void
   }
 }
