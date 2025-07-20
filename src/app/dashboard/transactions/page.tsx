@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import type { FormEvent } from 'react'
 import { supabase } from '@/lib/supabase'
 import { 
   Plus, 
@@ -159,7 +160,7 @@ export default function TransactionsPage() {
     }).format(amount)
   }
 
-  const getTransactionIcon = (type) => {
+  const getTransactionIcon = (type: string) => {
     switch (type) {
       case 'income':
         return <ArrowUpCircle className="w-5 h-5 text-green-600" />
@@ -174,20 +175,20 @@ export default function TransactionsPage() {
     }
   }
 
-  const getCategoryName = (categoryId, type) => {
+  const getCategoryName = (categoryId: string, type: string) => {
     if (!categoryId) return 'Sem categoria'
     const categoryList = type === 'income' ? categories.income : categories.expense
     const category = categoryList.find(c => c.id === categoryId)
     return category ? `${category.emoji} ${category.name}` : 'Categoria desconhecida'
   }
 
-  const getAccountName = (accountId) => {
+  const getAccountName = (accountId: string) => {
     if (!accountId) return 'Sem conta'
     const account = accounts.find(a => a.id === accountId)
     return account ? `${account.emoji} ${account.name}` : 'Conta desconhecida'
   }
 
-  const navigateMonth = (direction) => {
+  const navigateMonth = (direction: number) => {
     if (direction === 1) {
       if (currentMonth === 11) {
         setCurrentMonth(0)
@@ -205,7 +206,7 @@ export default function TransactionsPage() {
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     
     try {
@@ -248,7 +249,7 @@ export default function TransactionsPage() {
     }
   }
 
-  const handleEdit = (transaction) => {
+  const handleEdit = (transaction: any) => {
     setFormData({
       type: transaction.type,
       amount: transaction.amount.toString(),
@@ -265,7 +266,7 @@ export default function TransactionsPage() {
     setShowModal(true)
   }
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (!confirm('Tem certeza que deseja excluir esta transação?')) return
 
     try {
@@ -311,7 +312,7 @@ export default function TransactionsPage() {
     return grouped
   }
 
-  const getMonthName = (month) => {
+  const getMonthName = (month: number) => {
     const months = [
       'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
