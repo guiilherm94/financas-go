@@ -86,7 +86,7 @@ export default function TransactionsPage() {
     date: new Date().toISOString().split('T')[0],
     is_paid: true,
     is_recurring: false,
-    recurring_type: null
+    recurring_type: null as string | null
   })
 
   useEffect(() => {
