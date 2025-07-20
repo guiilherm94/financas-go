@@ -176,14 +176,14 @@ export default function TransactionsPage() {
     }
   }
 
-  const getCategoryName = (categoryId: string, type: string) => {
+  const getCategoryName = (categoryId: string | null, type: string) => {
     if (!categoryId) return 'Sem categoria'
     const categoryList = type === 'income' ? categories.income : categories.expense
     const category = categoryList.find(c => c.id === categoryId)
     return category ? `${category.emoji} ${category.name}` : 'Categoria desconhecida'
   }
 
-  const getAccountName = (accountId: string) => {
+  const getAccountName = (accountId: string | null) => {
     if (!accountId) return 'Sem conta'
     const account = accounts.find(a => a.id === accountId)
     return account ? `${account.emoji} ${account.name}` : 'Conta desconhecida'
@@ -297,7 +297,7 @@ export default function TransactionsPage() {
       date: new Date().toISOString().split('T')[0],
       is_paid: true,
       is_recurring: false,
-      recurring_type: null
+      recurring_type: null as string | null
     })
   }
 
