@@ -14,6 +14,43 @@ import CardsPage from '@/app/dashboard/cards/page'
 import SettingsPage from '@/app/dashboard/settings/page'
 import SimulatorPage from '@/app/dashboard/simulator/page'
 
+interface Transaction {
+  id: string
+  user_id: string
+  type: string
+  amount: number
+  description: string
+  category_id: string | null
+  account_id: string | null
+  card_id: string | null
+  date: string
+  is_recurring: boolean
+  recurring_type: string | null
+  is_paid: boolean
+  created_at: string
+}
+
+interface Category {
+  id: string
+  name: string
+  type: string
+  emoji: string
+  color: string
+}
+
+interface Account {
+  id: string
+  name: string
+  type: string
+  emoji: string
+}
+
+interface Card {
+  id: string
+  name: string
+  emoji: string
+}
+
 export default function DashboardClient({ 
   user, 
   userData, 
@@ -28,7 +65,12 @@ export default function DashboardClient({
   const [currentView, setCurrentView] = useState('dashboard')
   const [darkMode, setDarkMode] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [data, setData] = useState({
+  const [data, setData] = useState<{
+    transactions: Transaction[]
+    categories: { income: Category[], expense: Category[] }
+    accounts: Account[]
+    cards: Card[]
+  }>({
     transactions: [],
     categories: { income: [], expense: [] },
     accounts: [],
@@ -74,13 +116,13 @@ export default function DashboardClient({
       }
 
       setData({
-        transactions: transactionsRes.data || [],
+        transactions: (transactionsRes.data as Transaction[]) || [],
         categories: {
-          income: categoriesRes.data?.filter(c => c.type === 'income') || [],
-          expense: categoriesRes.data?.filter(c => c.type === 'expense') || []
+          income: (categoriesRes.data as Category[])?.filter((c: Category) => c.type === 'income') || [],
+          expense: (categoriesRes.data as Category[])?.filter((c: Category) => c.type === 'expense') || []
         },
-        accounts: accountsRes.data || [],
-        cards: cardsRes.data || []
+        accounts: (accountsRes.data as Account[]) || [],
+        cards: (cardsRes.data as Card[]) || []
       })
     } catch (error: any) {
       console.error('Erro ao carregar dados:', error)
