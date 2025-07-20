@@ -249,7 +249,7 @@ export default function TransactionsPage() {
     }
   }
 
-  const handleEdit = (transaction: any) => {
+  const handleEdit = (transaction: Transaction) => {
     setFormData({
       type: transaction.type,
       amount: transaction.amount.toString(),
@@ -301,7 +301,7 @@ export default function TransactionsPage() {
   }
 
   const groupTransactionsByDate = () => {
-    const grouped = {}
+    const grouped: { [key: string]: Transaction[] } = {}
     filteredTransactions.forEach(transaction => {
       const date = new Date(transaction.date).toDateString()
       if (!grouped[date]) {
@@ -428,8 +428,8 @@ export default function TransactionsPage() {
             </div>
           ) : (
             <div className="space-y-6">
-              {Object.entries(groupedTransactions).map(([date, dayTransactions]) => {
-                const dayTotal = dayTransactions.reduce((sum, t) => {
+              {Object.entries(groupedTransactions).map(([date, dayTransactions]: [string, Transaction[]]) => {
+                const dayTotal = dayTransactions.reduce((sum: number, t: Transaction) => {
                   if (t.type === 'income') return sum + t.amount
                   if (t.type === 'expense') return sum - t.amount
                   return sum
