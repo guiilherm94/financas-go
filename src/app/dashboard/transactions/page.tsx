@@ -30,6 +30,7 @@ interface Transaction {
   card_id: string | null
   date: string
   is_recurring: boolean
+  recurring_type: string | null
   is_paid: boolean
   created_at: string
 }
