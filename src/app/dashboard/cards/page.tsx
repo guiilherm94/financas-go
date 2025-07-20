@@ -80,7 +80,7 @@ export default function CardsPage() {
 
       setCards(cardsRes.data || [])
       setTransactions(transactionsRes.data || [])
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao carregar cartões:', error)
       window.showNotification?.('Erro', 'Falha ao carregar cartões', 'error')
     } finally {
@@ -124,7 +124,7 @@ export default function CardsPage() {
       setEditingCard(null)
       resetForm()
       loadData()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao salvar cartão:', error)
       window.showNotification?.('Erro', 'Falha ao salvar cartão', 'error')
     }
@@ -156,7 +156,7 @@ export default function CardsPage() {
       
       window.showNotification?.('Sucesso', 'Cartão excluído com sucesso', 'success')
       loadData()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao excluir cartão:', error)
       window.showNotification?.('Erro', 'Falha ao excluir cartão', 'error')
     }

@@ -33,7 +33,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
     try {
       const item = window.localStorage.getItem(key)
       return item ? JSON.parse(item) : initialValue
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Erro ao carregar localStorage key "${key}":`, error)
       return initialValue
     }
@@ -46,7 +46,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(key, JSON.stringify(valueToStore))
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Erro ao salvar localStorage key "${key}":`, error)
     }
   }
@@ -106,7 +106,7 @@ export const useAsync = <T, E = string>(asyncFunction: () => Promise<T>) => {
       const response = await asyncFunction()
       setValue(response)
       setStatus('success')
-    } catch (error) {
+    } catch (error: any) {
       setError(error as E)
       setStatus('error')
     }
@@ -228,7 +228,7 @@ export const useSubscription = () => {
           .single()
 
         setSubscriptionData(userData)
-      } catch (error) {
+      } catch (error: any) {
         console.error('Erro ao carregar assinatura:', error)
       } finally {
         setLoading(false)

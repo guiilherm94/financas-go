@@ -65,7 +65,7 @@ export default function CategoriesPage() {
         income: data?.filter(c => c.type === 'income') || [],
         expense: data?.filter(c => c.type === 'expense') || []
       })
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao carregar categorias:', error)
       window.showNotification?.('Erro', 'Falha ao carregar categorias', 'error')
     } finally {
@@ -106,7 +106,7 @@ export default function CategoriesPage() {
       setEditingCategory(null)
       resetForm()
       loadCategories()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao salvar categoria:', error)
       window.showNotification?.('Erro', 'Falha ao salvar categoria', 'error')
     }
@@ -136,7 +136,7 @@ export default function CategoriesPage() {
       
       window.showNotification?.('Sucesso', 'Categoria excluída com sucesso', 'success')
       loadCategories()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao excluir categoria:', error)
       window.showNotification?.('Erro', 'Falha ao excluir categoria', 'error')
     }

@@ -101,7 +101,7 @@ export default function SettingsPage() {
           email: userProfile.email || session.user.email || ''
         })
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao carregar dados:', error)
     } finally {
       setIsLoading(false)
@@ -148,7 +148,7 @@ export default function SettingsPage() {
         setUserData({ ...userData, full_name: formData.full_name })
       }
       window.showNotification?.('Sucesso', 'Perfil atualizado com sucesso', 'success')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao atualizar perfil:', error)
       window.showNotification?.('Erro', 'Falha ao atualizar perfil', 'error')
     }
@@ -160,7 +160,7 @@ export default function SettingsPage() {
     try {
       await supabase.auth.signOut()
       router.push('/')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao fazer logout:', error)
     }
   }
@@ -212,7 +212,7 @@ export default function SettingsPage() {
       URL.revokeObjectURL(url)
 
       window.showNotification?.('Sucesso', 'Dados exportados com sucesso', 'success')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao exportar dados:', error)
       window.showNotification?.('Erro', 'Falha ao exportar dados', 'error')
     }
@@ -237,7 +237,7 @@ export default function SettingsPage() {
 
       window.showNotification?.('Sucesso', 'Conta excluída com sucesso', 'success')
       router.push('/')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao excluir conta:', error)
       window.showNotification?.('Erro', 'Falha ao excluir conta', 'error')
     }
@@ -278,7 +278,7 @@ export default function SettingsPage() {
       } else {
         throw new Error(data.error)
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao criar assinatura:', error)
       window.showNotification?.('Erro', 'Falha ao processar assinatura', 'error')
     }

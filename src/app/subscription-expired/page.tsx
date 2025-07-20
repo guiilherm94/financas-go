@@ -18,7 +18,7 @@ export default function SubscriptionExpiredPage() {
     checkUser()
   }, [router])
 
-  const createSubscription = async (planType) => {
+  const createSubscription = async (planType: string) => {
     try {
       const response = await fetch('/api/subscription/create', {
         method: 'POST',
@@ -35,7 +35,7 @@ export default function SubscriptionExpiredPage() {
       } else {
         throw new Error(data.error)
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao criar assinatura:', error)
       alert('Erro ao processar assinatura. Tente novamente.')
     }

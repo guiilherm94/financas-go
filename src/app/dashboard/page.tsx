@@ -102,7 +102,7 @@ export default function DashboardPage() {
         accounts: accountsRes.data || [],
         cards: cardsRes.data || []
       })
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao carregar dados:', error)
     } finally {
       setIsLoading(false)

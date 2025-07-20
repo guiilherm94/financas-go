@@ -26,7 +26,7 @@ export const createSubscription = async (
     })
 
     return subscription.body
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro ao criar assinatura:', error)
     throw error
   }
@@ -39,7 +39,7 @@ export const cancelSubscription = async (subscriptionId: string) => {
       status: 'cancelled',
     })
     return response.body
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro ao cancelar assinatura:', error)
     throw error
   }
@@ -51,7 +51,7 @@ export const getSubscriptionStatus = async (subscriptionId: string) => {
       id: subscriptionId,
     })
     return response.body
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro ao buscar status da assinatura:', error)
     throw error
   }

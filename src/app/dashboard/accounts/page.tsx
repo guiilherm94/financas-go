@@ -67,7 +67,7 @@ export default function AccountsPage() {
       if (error) throw error
 
       setAccounts(data || [])
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao carregar contas:', error)
       window.showNotification?.('Erro', 'Falha ao carregar contas', 'error')
     } finally {
@@ -109,7 +109,7 @@ export default function AccountsPage() {
       setEditingAccount(null)
       resetForm()
       loadAccounts()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao salvar conta:', error)
       window.showNotification?.('Erro', 'Falha ao salvar conta', 'error')
     }
@@ -140,7 +140,7 @@ export default function AccountsPage() {
       
       window.showNotification?.('Sucesso', 'Conta excluída com sucesso', 'success')
       loadAccounts()
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao excluir conta:', error)
       window.showNotification?.('Erro', 'Falha ao excluir conta', 'error')
     }
