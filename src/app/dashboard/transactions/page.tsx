@@ -146,7 +146,7 @@ export default function TransactionsPage() {
     filtered.sort((a, b) => {
       const dateA = new Date(a.date)
       const dateB = new Date(b.date)
-      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB
+      return sortOrder === 'desc' ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime()
     })
 
     setFilteredTransactions(filtered)
