@@ -152,7 +152,7 @@ export default function TransactionsPage() {
     setFilteredTransactions(filtered)
   }
 
-  const formatCurrency = (amount) => {
+  const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
